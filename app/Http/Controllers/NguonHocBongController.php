@@ -13,6 +13,10 @@ class NguonHocBongController extends Controller
         $this->player = $player;
     }
 
+    public function getUser($id){
+        return Player::find($id);
+    }
+
     public function login(Request $request){
         $credentials = $request->only('phone_number', 'name');
         $player = Player::where('phone_number', '=', $credentials['phone_number'])->first();

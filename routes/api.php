@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Player;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +15,12 @@ use Illuminate\Http\Request;
 */
 Route::post('auth/login', 'NguonHocBongController@login');
 Route::post('auth/update-score', 'NguonHocBongController@updateScore');
-// Route::post('auth/update-score', 'NguonHocBongController@updateScore');
+Route::get('user-info/{id}', function(Request $request, $id) {
+    $player = Player::findOrFail($id);
+    $player->update($request->all());
+
+    return $player;
+});
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
